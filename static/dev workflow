@@ -1,0 +1,17 @@
+
+TODO: VSCode Extension Workflows ( maybe )
+		Overview ( Service Dashboards )
+Code Insights
+Synthetics 
+ 
+( Derek TODO - Workflow )
+
+		Commit code to git
+		Ci/CD from Datadog tells me push is GREEN
+		Run Traffic with Synthetics
+
+	Code Insights
+ Exception or Error  
+Errors Shown in VSCode
+Latency Shown in VSCode “maybe”
+Synthetic Tests

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Information</title>
+    <style>
+        .table-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <div style="display: flex; justify-content: start; align-items: center; width: 100%; padding: 20px;">
+    <img src="static/datadog-logo-purple.png" alt="Datadog Logo" style="height: 250px;"> <!-- Adjust height as needed -->
+</div>
+    <div class="table-container">
+        <div>
+            <h2>1980s Movies</h2>
+            <table id="movies-all">
+                <tr>
+                    <th>Movie</th>
+                </tr>
+                <!-- Rows will be added here by the JavaScript -->
+            </table>
+        </div>
+
+        <div>
+            <h2>Movie Ratings</h2>
+            <table id="movies-ratings">
+                <tr>
+                    <th>Movie</th>
+                    <th>Rating</th>
+                </tr>
+                <!-- Rows will be added here by the JavaScript -->
+            </table>
+        </div>
+
+        <div>
+            <h2>Movie Genre Ratings</h2>
+            <table id="movies-categories">
+                <tr>
+                    <th>Category</th>
+                    <th>Rating</th>
+                </tr>
+                <!-- Rows will be added here by the JavaScript -->
+            </table>
+        </div>
+    </div>
+
+    <script>
+
+
+        function fetchAndDisplay(endpoint, tableId, keys) {
+            fetch(`http://localhost:5000${endpoint}`)
+                .then(response => response.json())
+                .then(data => {
+                    const table = document.getElementById(tableId);
+                    data.forEach(item => {
+                        const row = table.insertRow();
+                        keys.forEach(key => {
+                            const cell = row.insertCell();
+                            cell.textContent = item[key] || item;
+                        });
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        fetchAndDisplay('/movies/all', 'movies-all', ['']);
+        fetchAndDisplay('/movies/ratings', 'movies-ratings', ['movie', 'rating']);
+        fetchAndDisplay('/movies/categories', 'movies-categories', ['category', 'rating']);
+    </script>
+</body>
+</html>
+
